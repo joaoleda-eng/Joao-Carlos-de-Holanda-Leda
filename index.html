@@ -1,836 +1,181 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>João Carlos | Engenheiro Civil</title>
-  <!-- CSS principal -->
-  <style>
-    /* ========== RESET E VARIÁVEIS ========== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
-    }
-
-    :root {
-      --preto: #0a0a0a;
-      --preto-suave: #1a1a1a;
-      --vermelho: #c1121f;
-      --vermelho-escuro: #8b0e17;
-      --vermelho-vibrante: #e63946;
-      --branco: #f8f9fa;
-      --cinza: #2b2b2b;
-      --sombra: 0 20px 35px -8px rgba(0, 0, 0, 0.8);
-      --transicao: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    body {
-      background-color: var(--preto);
-      color: var(--branco);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ========== LOGO (canto superior esquerdo) ========== */
-    .logo-container {
-      position: fixed;
-      top: 25px;
-      left: 30px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(8px);
-      padding: 8px 18px 8px 12px;
-      border-radius: 50px;
-      border: 1px solid rgba(193, 18, 31, 0.5);
-      box-shadow: var(--sombra);
-      transition: var(--transicao);
-    }
-
-    .logo-container:hover {
-      border-color: var(--vermelho);
-      box-shadow: 0 0 20px rgba(193, 18, 31, 0.6);
-    }
-
-    .logo-svg {
-      width: 48px;
-      height: 48px;
-      filter: drop-shadow(0 0 6px rgba(193, 18, 31, 0.8));
-    }
-
-    .logo-text {
-      font-weight: 700;
-      font-size: 1.25rem;
-      letter-spacing: 1px;
-      background: linear-gradient(135deg, #fff 20%, var(--vermelho-vibrante) 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 10px rgba(193, 18, 31, 0.5);
-    }
-
-    .logo-text span {
-      color: var(--vermelho);
-      background: none;
-      -webkit-background-clip: unset;
-      background-clip: unset;
-      font-weight: 300;
-    }
-
-    /* ========== NAVEGAÇÃO ========== */
-    nav {
-      position: fixed;
-      top: 30px;
-      right: 30px;
-      z-index: 1000;
-      display: flex;
-      gap: 12px;
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(10px);
-      padding: 10px 20px;
-      border-radius: 60px;
-      border: 1px solid rgba(193, 18, 31, 0.4);
-      box-shadow: var(--sombra);
-    }
-
-    nav a {
-      color: var(--branco);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: 40px;
-      transition: var(--transicao);
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      border: 1px solid transparent;
-    }
-
-    nav a:hover {
-      background: var(--vermelho);
-      color: var(--preto);
-      border-color: var(--vermelho-vibrante);
-      box-shadow: 0 0 18px var(--vermelho);
-      transform: scale(1.05);
-    }
-
-    /* ========== SEÇÕES ========== */
-    section {
-      min-height: 100vh;
-      padding: 120px 8% 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      border-bottom: 1px solid rgba(193, 18, 31, 0.2);
-    }
-
-    /* Página principal (hero) */
-    .hero {
-      background: radial-gradient(circle at 80% 20%, rgba(193, 18, 31, 0.25) 0%, var(--preto) 70%);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .hero-content h1 {
-      font-size: 3.8rem;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: -1px;
-    }
-
-    .hero-content h1 .destaque {
-      color: var(--vermelho);
-      text-shadow: 0 0 25px rgba(193, 18, 31, 0.9);
-      display: inline-block;
-    }
-
-    .hero-content p {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin-bottom: 30px;
-      max-width: 90%;
-      border-left: 4px solid var(--vermelho);
-      padding-left: 20px;
-    }
-
-    .hero-sub {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .hero-sub span {
-      background: var(--preto-suave);
-      padding: 8px 18px;
-      border-radius: 30px;
-      border: 1px solid var(--vermelho-escuro);
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      color: #ddd;
-    }
-
-    /* Cartão de visita (flutuante) */
-    .cartao-visita {
-      background: linear-gradient(145deg, #0f0f0f, #1e1e1e);
-      border-radius: 32px;
-      padding: 35px 30px;
-      box-shadow: 0 30px 50px -10px rgba(193, 18, 31, 0.5), 0 0 0 1px rgba(193, 18, 31, 0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: var(--transicao);
-      max-width: 400px;
-      justify-self: end;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(4px);
-    }
-
-    .cartao-visita:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 40px 60px -8px var(--vermelho), 0 0 0 1px var(--vermelho);
-    }
-
-    .cartao-visita .avatar-simbolo {
-      width: 110px;
-      height: 110px;
-      background: var(--vermelho);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      box-shadow: 0 0 25px var(--vermelho);
-    }
-
-    .cartao-visita .avatar-simbolo svg {
-      width: 70px;
-      height: 70px;
-      fill: var(--preto);
-    }
-
-    .cartao-visita h3 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: white;
-      margin-bottom: 4px;
-    }
-
-    .cartao-visita .cargo {
-      color: var(--vermelho);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 0.85rem;
-      margin-bottom: 18px;
-    }
-
-    .cartao-visita .dados {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      color: #aaa;
-      font-size: 0.95rem;
-      border-top: 1px dashed var(--vermelho-escuro);
-      padding-top: 18px;
-      margin-top: 8px;
-    }
-
-    .cartao-visita .dados div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .cartao-visita .dados i {
-      color: var(--vermelho);
-      font-style: normal;
-      font-size: 1.2rem;
-    }
-
-    /* ========== SEÇÃO HISTÓRIA ========== */
-    .historia {
-      background: linear-gradient(90deg, #0a0a0a 0%, #120b0b 100%);
-    }
-
-    .section-title {
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 60px;
-      display: inline-block;
-      text-transform: uppercase;
-      letter-spacing: -1px;
-      border-bottom: 6px solid var(--vermelho);
-      padding-bottom: 12px;
-      align-self: flex-start;
-    }
-
-    .historia-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .historia-texto p {
-      margin-bottom: 25px;
-      font-size: 1.1rem;
-      color: #ccc;
-      line-height: 1.9;
-    }
-
-    .historia-texto .destaque-historia {
-      color: var(--vermelho);
-      font-weight: 600;
-      border-left: 4px solid var(--vermelho);
-      padding-left: 20px;
-      background: rgba(193, 18, 31, 0.08);
-      border-radius: 0 8px 8px 0;
-    }
-
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-
-    .timeline-item {
-      background: var(--preto-suave);
-      border-radius: 16px;
-      padding: 20px 25px;
-      border-left: 6px solid var(--vermelho);
-      box-shadow: var(--sombra);
-      transition: var(--transicao);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .timeline-item:hover {
-      background: #1f1a1a;
-      transform: translateX(10px);
-      border-left-color: var(--vermelho-vibrante);
-    }
-
-    .timeline-item .ano {
-      color: var(--vermelho);
-      font-weight: 800;
-      font-size: 1.4rem;
-      margin-bottom: 5px;
-    }
-
-    .timeline-item h4 {
-      font-size: 1.3rem;
-      margin-bottom: 5px;
-    }
-
-    .timeline-item p {
-      color: #aaa;
-      font-size: 0.95rem;
-    }
-
-    /* ========== SEÇÃO SERVIÇOS ========== */
-    .servicos {
-      background: var(--preto);
-    }
-
-    .servicos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
-    }
-
-    .servico-card {
-      background: linear-gradient(145deg, #101010, #1a1a1a);
-      border-radius: 24px;
-      padding: 35px 25px;
-      text-align: center;
-      transition: var(--transicao);
-      border: 1px solid rgba(193, 18, 31, 0.3);
-      box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.8);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .servico-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, var(--vermelho), var(--vermelho-vibrante));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-
-    .servico-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .servico-card:hover {
-      transform: translateY(-12px);
-      border-color: var(--vermelho);
-      box-shadow: 0 30px 45px -10px var(--vermelho);
-    }
-
-    .servico-icon {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 10px var(--vermelho));
-    }
-
-    .servico-card h3 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      color: white;
-    }
-
-    .servico-card p {
-      color: #b0b0b0;
-      font-size: 0.98rem;
-    }
-
-    /* ========== SEÇÃO CONTATO ========== */
-    .contato {
-      background: radial-gradient(circle at 20% 30%, rgba(193, 18, 31, 0.15) 0%, var(--preto) 80%);
-    }
-
-    .contato-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      background: rgba(20, 20, 20, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 40px;
-      padding: 50px;
-      border: 1px solid rgba(193, 18, 31, 0.4);
-    }
-
-    .info-contato h3 {
-      font-size: 2rem;
-      margin-bottom: 25px;
-      color: white;
-    }
-
-    .info-contato .item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 25px;
-      font-size: 1.15rem;
-    }
-
-    .info-contato .item i {
-      font-size: 1.8rem;
-      color: var(--vermelho);
-      width: 40px;
-      text-align: center;
-      font-style: normal;
-    }
-
-    .form-contato {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .form-contato input,
-    .form-contato textarea {
-      background: #121212;
-      border: 1px solid #2a2a2a;
-      padding: 16px 20px;
-      border-radius: 16px;
-      color: white;
-      font-size: 1rem;
-      transition: var(--transicao);
-      outline: none;
-      resize: vertical;
-    }
-
-    .form-contato input:focus,
-    .form-contato textarea:focus {
-      border-color: var(--vermelho);
-      box-shadow: 0 0 20px rgba(193, 18, 31, 0.5);
-      background: #0c0c0c;
-    }
-
-    .form-contato button {
-      background: var(--vermelho);
-      color: var(--preto);
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 16px;
-      border: none;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: var(--transicao);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .form-contato button:hover {
-      background: var(--vermelho-vibrante);
-      box-shadow: 0 0 30px var(--vermelho);
-      transform: scale(1.02);
-    }
-
-    /* ========== FOOTER ========== */
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #050505;
-      color: #666;
-      border-top: 1px solid var(--vermelho-escuro);
-      font-size: 0.9rem;
-    }
-
-    /* ========== RESPONSIVIDADE ========== */
-    @media (max-width: 1024px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .hero-content p {
-        max-width: 100%;
-        border-left: none;
-        border-bottom: 2px solid var(--vermelho);
-        padding-bottom: 15px;
-        padding-left: 0;
-      }
-      .hero-sub {
-        justify-content: center;
-      }
-      .cartao-visita {
-        justify-self: center;
-        margin-top: 40px;
-      }
-      .historia-grid {
-        grid-template-columns: 1fr;
-      }
-      .contato-container {
-        grid-template-columns: 1fr;
-        padding: 30px;
-      }
-      .logo-container {
-        top: 15px;
-        left: 15px;
-      }
-      nav {
-        top: 15px;
-        right: 15px;
-        padding: 6px 12px;
-        gap: 4px;
-      }
-      nav a {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .logo-text {
-        display: none;
-      }
-      .logo-container {
-        padding: 8px;
-      }
-      section {
-        padding: 100px 5% 60px;
-      }
-      .hero-content h1 {
-        font-size: 2.5rem;
-      }
-      .section-title {
-        font-size: 2.2rem;
-      }
-    }
-
-    /* ========== ANIMAÇÕES DINÂMICAS ========== */
-    @keyframes flutuar {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .cartao-visita {
-      animation: flutuar 5s ease-in-out infinite;
-    }
-
-    /* Efeito de brilho dinâmico no logo */
-    @keyframes brilhoLogo {
-      0% { filter: drop-shadow(0 0 5px var(--vermelho)); }
-      50% { filter: drop-shadow(0 0 20px var(--vermelho-vibrante)); }
-      100% { filter: drop-shadow(0 0 5px var(--vermelho)); }
-    }
-
-    .logo-svg {
-      animation: brilhoLogo 2.5s infinite;
-    }
-
-    /* Botão voltar ao topo */
-    .btn-topo {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--vermelho);
-      color: var(--preto);
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 0 25px var(--vermelho);
-      transition: var(--transicao);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .btn-topo.visivel {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .btn-topo:hover {
-      background: var(--vermelho-vibrante);
-      transform: scale(1.1);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>João Carlos | Engenheiro Civil</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonte Google para tipografia moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
-  <!-- LOGO (criado com SVG) -->
-  <div class="logo-container">
-    <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="45" stroke="#c1121f" stroke-width="6" fill="#0a0a0a"/>
-      <path d="M30 65 L50 25 L70 65" stroke="#c1121f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <rect x="42" y="48" width="16" height="22" fill="#c1121f" rx="2"/>
-      <circle cx="50" cy="22" r="5" fill="#e63946"/>
-    </svg>
-    <div class="logo-text">João <span>Carlos</span></div>
-  </div>
-
-  <!-- NAVEGAÇÃO -->
-  <nav>
-    <a href="#principal">Principal</a>
-    <a href="#historia">História</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#contato">Contato</a>
-  </nav>
-
-  <!-- PÁGINA PRINCIPAL (HERO) -->
-  <section id="principal" class="hero">
-    <div class="hero-content">
-      <h1>Engenheiro<br><span class="destaque">Civil</span></h1>
-      <p>Projetos estruturais com precisão, segurança e inovação. Transformando ideias em realidade com mais de 15 anos de experiência.</p>
-      <div class="hero-sub">
-        <span>🏗️ Estruturas</span>
-        <span>📐 Projetos</span>
-        <span>🏢 Gerenciamento</span>
-      </div>
-    </div>
-
-    <!-- CARTÃO DE VISITA (criado e integrado) -->
-    <div class="cartao-visita">
-      <div class="avatar-simbolo">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M25 70 L50 20 L75 70" stroke="#0a0a0a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <rect x="42" y="48" width="16" height="25" fill="#0a0a0a" rx="2"/>
-          <circle cx="50" cy="18" r="6" fill="#0a0a0a"/>
-        </svg>
-      </div>
-      <h3>João Carlos</h3>
-      <div class="cargo">Engenheiro Civil</div>
-      <div class="dados">
-        <div><i>📞</i> (11) 98765-4321</div>
-        <div><i>✉️</i> joao.carlos@engenharia.com</div>
-        <div><i>📍</i> São Paulo - SP</div>
-        <div><i>🆔</i> CREA 123456789</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HISTÓRIA DA CARREIRA -->
-  <section id="historia" class="historia">
-    <h2 class="section-title">História da Carreira</h2>
-    <div class="historia-grid">
-      <div class="historia-texto">
-        <p class="destaque-historia">Desde 2008, construindo um legado de excelência na engenharia civil.</p>
-        <p>João Carlos iniciou sua jornada na Universidade de São Paulo (USP), onde se formou com honras em Engenharia Civil. Logo após, especializou-se em Estruturas de Concreto Armado e Metálicas, sempre buscando unir teoria e prática.</p>
-        <p>Ao longo de sua carreira, participou de projetos residenciais, comerciais e industriais de grande porte, incluindo edifícios sustentáveis e pontes. Seu compromisso com prazos, orçamentos e segurança é reconhecido por clientes e colegas.</p>
-        <p>Hoje, como engenheiro autônomo, lidera uma equipe multidisciplinar e aplica as mais modernas metodologias BIM e tecnologias construtivas.</p>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="ano">2010</span>
-          <h4>Início da carreira</h4>
-          <p>Engenheiro júnior na Construtora Horizonte, atuando em obras residenciais de alto padrão.</p>
+    <!-- Cabeçalho / Navegação -->
+    <header id="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <!-- LOGO CRIADO EM SVG -->
+                <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="80" height="80" rx="10" stroke="#E50914" stroke-width="5"/>
+                    <path d="M30 70V30L50 50L70 30V70" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="50" cy="50" r="4" fill="#E50914"/>
+                </svg>
+                <span>João Carlos</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#historia">História</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
-        <div class="timeline-item">
-          <span class="ano">2014</span>
-          <h4>Especialização em Estruturas</h4>
-          <p>Pós-graduação em Engenharia Estrutural pela USP e certificação em BIM.</p>
+    </header>
+
+    <!-- Seção Home (Hero) -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Construindo <span class="highlight">Solidez</span> e Inovação</h1>
+                <p>Engenharia Civil de alto padrão com foco em resultados e segurança.</p>
+                <a href="#contato" class="btn">Solicitar Orçamento</a>
+            </div>
+            <div class="hero-image">
+                <!-- Imagem ilustrativa de engenharia (usando placeholder) -->
+                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Engenharia Civil">
+            </div>
         </div>
-        <div class="timeline-item">
-          <span class="ano">2018</span>
-          <h4>Projetos de grande porte</h4>
-          <p>Coordenação de equipe na construção de um centro logístico de 30.000 m².</p>
+    </section>
+
+    <!-- Seção História da Carreira -->
+    <section id="historia" class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title">Minha <span class="highlight">História</span></h2>
+            <div class="history-grid">
+                <div class="history-text">
+                    <p>Com mais de <strong>15 anos de experiência</strong> no setor da construção civil, João Carlos construiu uma trajetória sólida baseada em ética, precisão técnica e paixão por transformar projetos em realidade.</p>
+                    <p>Formado pela Universidade Federal e com especialização em Gestão de Obras, já liderou mais de <strong>200 projetos</strong> residenciais, comerciais e industriais.</p>
+                    <p>Minha missão é entregar não apenas estruturas, mas ambientes seguros e funcionais que superam as expectativas dos clientes.</p>
+                </div>
+                <div class="history-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Anos de Experiência</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Projetos Concluídos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Clientes Satisfeitos</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="timeline-item">
-          <span class="ano">2023</span>
-          <h4>Consultoria e Inovação</h4>
-          <p>Fundação do próprio escritório, focado em soluções sustentáveis e inteligentes.</p>
+    </section>
+
+    <!-- Seção Serviços -->
+    <section id="servicos" class="section">
+        <div class="container">
+            <h2 class="section-title">Meus <span class="highlight">Serviços</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-building"></i>
+                    <h3>Projetos Estruturais</h3>
+                    <p>Cálculo e dimensionamento de estruturas de concreto armado, metálicas e de madeira.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-hard-hat"></i>
+                    <h3>Gestão de Obras</h3>
+                    <p>Gerenciamento completo do canteiro de obras, cronograma e orçamento.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Consultoria Residencial</h3>
+                    <p>Laudos técnicos, vistorias e regularização de imóveis.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-drafting-compass"></i>
+                    <h3>Planejamento Urbano</h3>
+                    <p>Projetos de loteamento e infraestrutura urbana.</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SERVIÇOS -->
-  <section id="servicos" class="servicos">
-    <h2 class="section-title">Serviços</h2>
-    <div class="servicos-grid">
-      <div class="servico-card">
-        <div class="servico-icon">🏗️</div>
-        <h3>Projetos Estruturais</h3>
-        <p>Cálculo e detalhamento de estruturas de concreto, aço e madeira, com foco em segurança e economia.</p>
-      </div>
-      <div class="servico-card">
-        <div class="servico-icon">📐</div>
-        <h3>Projetos Arquitetônicos</h3>
-        <p>Desenvolvimento de plantas residenciais e comerciais, integrando estética e funcionalidade.</p>
-      </div>
-      <div class="servico-card">
-        <div class="servico-icon">🏢</div>
-        <h3>Gerenciamento de Obras</h3>
-        <p>Planejamento, execução e fiscalização de obras, garantindo prazos e qualidade.</p>
-      </div>
-      <div class="servico-card">
-        <div class="servico-icon">📊</div>
-        <h3>Consultoria Técnica</h3>
-        <p>Laudos, perícias e avaliações de imóveis, com rigor técnico e normas ABNT.</p>
-      </div>
-    </div>
-  </section>
+    <!-- Seção Contato e Cartão de Visita -->
+    <section id="contato" class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title">Entre em <span class="highlight">Contato</span></h2>
+            <div class="contact-container">
+                <!-- Formulário -->
+                <form class="contact-form" id="contactForm">
+                    <div class="input-group">
+                        <input type="text" placeholder="Seu Nome" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" placeholder="Seu E-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Enviar Mensagem</button>
+                </form>
 
-  <!-- CONTATO -->
-  <section id="contato" class="contato">
-    <h2 class="section-title">Contato</h2>
-    <div class="contato-container">
-      <div class="info-contato">
-        <h3>Fale com João Carlos</h3>
-        <div class="item"><i>📞</i> (11) 98765-4321</div>
-        <div class="item"><i>✉️</i> joao.carlos@engenharia.com</div>
-        <div class="item"><i>📍</i> Av. Paulista, 1000 - São Paulo/SP</div>
-        <div class="item"><i>🕒</i> Seg - Sex: 9h às 18h</div>
-      </div>
-      <form class="form-contato" id="formContato">
-        <input type="text" placeholder="Seu nome" required>
-        <input type="email" placeholder="Seu e-mail" required>
-        <input type="text" placeholder="Assunto">
-        <textarea rows="4" placeholder="Mensagem"></textarea>
-        <button type="submit">Enviar Mensagem</button>
-      </form>
-    </div>
-  </section>
+                <!-- CARTÃO DE VISITA DIGITAL -->
+                <div class="business-card">
+                    <div class="card-header">
+                        <div class="card-logo">
+                            <!-- Logo menor para o cartão -->
+                            <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+                                <rect x="10" y="10" width="80" height="80" rx="10" stroke="#E50914" stroke-width="5"/>
+                                <path d="M30 70V30L50 50L70 30V70" stroke="#FFFFFF" stroke-width="6"/>
+                            </svg>
+                        </div>
+                        <h3>João Carlos</h3>
+                        <p>Engenheiro Civil</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(11) 99999-9999</span>
+                        </div>
+                        <div class="card-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>joao.carlos@engenharia.com</span>
+                        </div>
+                        <div class="card-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>São Paulo - SP</span>
+                        </div>
+                        <div class="card-item">
+                            <i class="fas fa-id-card"></i>
+                            <span>CREA: 123456789</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <i class="fab fa-linkedin"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 João Carlos - Engenheiro Civil | CREA 123456789 | Todos os direitos reservados.</p>
-  </footer>
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 João Carlos Engenharia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
-  <!-- BOTÃO VOLTAR AO TOPO -->
-  <button class="btn-topo" id="btnTopo" aria-label="Voltar ao topo">↑</button>
-
-  <!-- JAVASCRIPT -->
-  <script>
-    (function() {
-      // 1. Botão voltar ao topo
-      const btnTopo = document.getElementById('btnTopo');
-      
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 600) {
-          btnTopo.classList.add('visivel');
-        } else {
-          btnTopo.classList.remove('visivel');
-        }
-      });
-
-      btnTopo.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
-      // 2. Navegação suave para links internos
-      document.querySelectorAll('nav a, .logo-container').forEach(link => {
-        link.addEventListener('click', (e) => {
-          const href = link.getAttribute('href');
-          if (href && href.startsWith('#') && href !== '#') {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }
-        });
-      });
-
-      // 3. Formulário de contato: feedback visual e reset
-      const form = document.getElementById('formContato');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Mensagem enviada com sucesso! João Carlos entrará em contato em breve.');
-        form.reset();
-      });
-
-      // 4. Efeito dinâmico extra: mudar cor da borda do cartão ao passar o mouse
-      const cartao = document.querySelector('.cartao-visita');
-      cartao.addEventListener('mouseenter', () => {
-        cartao.style.transition = 'all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2)';
-      });
-
-      // 5. Animação de scroll para seções (fade in)
-      const sections = document.querySelectorAll('section');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, { threshold: 0.15 });
-
-      sections.forEach(section => {
-        section.style.opacity = 0;
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        observer.observe(section);
-      });
-
-      // 6. Ano atual no footer (opcional)
-      const footerAno = document.querySelector('footer p');
-      if (footerAno) {
-        const anoAtual = new Date().getFullYear();
-        footerAno.innerHTML = footerAno.innerHTML.replace('2025', anoAtual);
-      }
-    })();
-  </script>
+    <script src="script.js"></script>
 </body>
-</html>=
+</html>
